@@ -32,24 +32,23 @@ int main(int argc, char **argv)
     
     int sum = 0, offset, first, last;
     char buffer = 0; 
-    while (fprintf(fp, "%c", buffer) != EOF) {
+    while (fscanf(fp, "%c", &buffer) != EOF) {
         offset = 0, first = 0, last = 0;
         while (buffer != '\n') {
             if ((buffer <= '9') && (buffer >= '0')) {
-                printf("%c", buffer);
-                last = buffer - '0';
+                first = buffer - '0';
                 break;
             }
+            fscanf(fp, "%c", &buffer);
             offset++;
         }
         fseek(fp, -offset, SEEK_CUR);
         offset = 0;
-        printf("\njkdfflsdjfsl\n");
         while (buffer != '\n') {
             if ((buffer <= '9') && (buffer >= '0')) {
-                printf("%c", buffer);
                 last = buffer - '0';
             }
+            fscanf(fp, "%c", &buffer);
             offset++;
         }
         sum += first*10 + last;
