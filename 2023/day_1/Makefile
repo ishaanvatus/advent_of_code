@@ -1,7 +1,19 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -g -O3
-TARGET = trebuchet
+CFLAGS = -Wall -Wpedantic -Wextra
+OFLAGS = -O3
+DFLAGS = -g
+SRCS = $(wildcard *.c)
+BINARY = trebuchet
+OBJS = $(SRCS:.c=.o)
 
-SRC = trebuchet.c
-$(TARGET) : $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+all: $(BINARY)
+
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
+
+$(BINARY): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+clean:
+	rm -f $(OBJS)
