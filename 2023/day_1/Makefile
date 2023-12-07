@@ -2,18 +2,15 @@ CC = gcc
 CFLAGS = -Wall -Wpedantic -Wextra
 OFLAGS = -O3
 DFLAGS = -g
-SRCS = $(wildcard *.c)
-BINARY = trebuchet
-OBJS = $(SRCS:.c=.o)
 
-all: $(BINARY)
+ALL_SRCS = $(wildcard *.c)
+PROGRAMS = $(ALL_SRCS:.c=)
 
+all: $(PROGRAMS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
-
-$(BINARY): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+%: %.c
+	$(CC) $(CFLAGS) $(DFLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(PROGRAMS)
+
